@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBSE Class 6 Science - Sound Part 1: Exploring Sound Around Us</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Custom Color Palette & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            900: '#0B132B',
+                            800: '#1C2541',
+                            700: '#2A365C',
+                            600: '#3A4B7C',
+                        },
+                        electric: {
+                            cyan: '#4CC9F0',
+                            blue: '#4895EF',
+                            indigo: '#4361EE',
+                            purple: '#7209B7',
+                            pink: '#F72585',
+                            yellow: '#FFD166',
+                            green: '#06D6A0',
+                            orange: '#FB8500'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth Slide Transition and Container Layout */
+        body {
+            background-color: #0B132B;
+            color: #F8FAFC;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.35s ease-in-out;
+            min-height: calc(100vh - 72px);
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 24px -6px rgba(76, 201, 240, 0.25);
+        }
+
+        /* Interactive Sound Card Pulsing Animation */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .pulse-sound {
+            animation: pulse-ring 2s infinite ease-in-out;
+        }
+
+        /* Vibration Animation Simulation */
+        @keyframes vibration-shake {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-3px, 2px) rotate(-1deg); }
+            40% { transform: translate(3px, -2px) rotate(1deg); }
+            60% { transform: translate(-3px, -1px) rotate(-0.5deg); }
+            80% { transform: translate(2px, 2px) rotate(1deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        .vibrate-anim {
+            animation: vibration-shake 0.15s infinite;
+        }
+
+        /* Rubber Band Pluck String Wave Effect */
+        @keyframes string-pluck {
+            0% { d: path("M 20 100 Q 150 100 280 100"); }
+            25% { d: path("M 20 100 Q 150 40 280 100"); }
+            50% { d: path("M 20 100 Q 150 160 280 100"); }
+            75% { d: path("M 20 100 Q 150 70 280 100"); }
+            100% { d: path("M 20 100 Q 150 100 280 100"); }
+        }
+
+        .animated-string {
+            animation: string-pluck 0.4s ease-out;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B132B;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A365C;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4CC9F0;
+        }
+    </style>
+</head>
+<body class="bg-navy-900 text-white min-h-screen flex flex-col justify-between">
+
+    <!-- TOP CONTROL NAVIGATION BAR (Silent UI Controls) -->
+    <header class="bg-navy-800/95 backdrop-blur border-b border-navy-700 px-6 py-3 flex items-center justify-between z-50 h-[72px] sticky top-0 shadow-xl">
+        <div class="flex items-center space-x-3">
+            <div class="bg-gradient-to-r from-electric-cyan to-electric-indigo p-2.5 rounded-xl shadow-lg">
+                <i class="fa-solid font-bold fa-volume-high text-navy-900 text-xl"></i>
+            </div>
+            <div>
+                <h1 class="font-heading text-xl font-bold tracking-wide text-electric-cyan">MISSION: SOUND DETECTIVE</h1>
+                <p class="text-xs text-gray-300 font-medium">CBSE Class 6 Science • Part 1: Exploring Sound Around Us</p>
+            </div>
+        </div>
+
+        <!-- SLIDE NAVIGATION CONTROLS (Silent UI triggers) -->
+        <div class="flex items-center space-x-4">
+            <button onclick="prevSlide()" class="px-4 py-2 bg-navy-700 hover:bg-electric-indigo text-white rounded-lg font-semibold flex items-center gap-2 transition border border-gray-600 active:scale-95">
+                <i class="fa-solid fa-chevron-left"></i> Previous
+            </button>
+            
+            <div class="flex items-center bg-navy-900 px-4 py-2 rounded-lg border border-navy-700">
+                <span id="slide-num" class="font-heading font-bold text-electric-yellow text-lg">1</span>
+                <span class="text-gray-400 mx-1 font-bold">/</span>
+                <span class="text-gray-400 font-bold">15</span>
+            </div>
+
+            <button onclick="nextSlide()" class="px-5 py-2 bg-electric-cyan hover:bg-electric-blue text-navy-900 font-heading font-bold rounded-lg flex items-center gap-2 transition shadow-lg shadow-electric-cyan/20 active:scale-95">
+                Next <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <button onclick="toggleSlideMenu()" class="p-2.5 bg-navy-700 hover:bg-navy-600 text-electric-cyan rounded-lg transition border border-gray-600 active:scale-95" title="Slide Overview">
+                <i class="fa-solid fa-border-all text-lg"></i>
+            </button>
+            <button onclick="toggleFullScreen()" class="p-2.5 bg-navy-700 hover:bg-navy-600 text-white rounded-lg transition border border-gray-600 active:scale-95" title="Full Screen">
+                <i class="fa-solid fa-expand text-lg"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- SLIDE MENU OVERLAY THUMBNAILS -->
+    <div id="slide-menu" class="hidden fixed inset-0 bg-navy-900/95 backdrop-blur-md z-50 p-8 overflow-y-auto">
+        <div class="flex justify-between items-center mb-6 max-w-6xl mx-auto">
+            <h2 class="font-heading text-2xl font-bold text-electric-cyan"><i class="fa-solid fa-compass mr-2"></i> Sound Detective Slide Navigator</h2>
+            <button onclick="toggleSlideMenu(false)" class="px-4 py-2 bg-electric-pink text-white font-bold rounded-xl hover:bg-pink-600 transition">
+                <i class="fa-solid fa-xmark mr-1"></i> Close Navigator
+            </button>
+        </div>
+        <div id="grid-thumbnails" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
+            <!-- Dynamic thumbnails populated via JS -->
+        </div>
+    </div>
+
+    <!-- MAIN SLIDE CONTAINER -->
+    <main class="flex-1 flex flex-col justify-center relative overflow-hidden">
+
+        <!-- ==================== SLIDE 1 ==================== -->
+        <section class="slide active flex-col p-6 md:p-8" id="slide-1">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden shadow-2xl">
+                <!-- Background Accent Glow -->
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-electric-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-electric-cyan/20 border border-electric-cyan/40 rounded-full text-electric-cyan text-xs font-bold tracking-wider uppercase mb-3">
+                        <i class="fa-solid fa-magnifying-glass"></i> CLASSROOM LESSON SESSION • CLASS 6 SCIENCE
+                    </div>
+                    <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+                        MISSION: <span class="text-transparent bg-clip-text bg-gradient-to-r from-electric-cyan via-electric-blue to-electric-yellow">SOUND DETECTIVE</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-electric-yellow font-heading font-medium mt-2">
+                        Can You Discover Where Sound Comes From? 🎧
+                    </p>
+                </div>
+
+                <!-- Interactive Content Grid (Sound Sources in Classroom) -->
+                <div class="my-auto py-4 z-10">
+                    <p class="text-xs text-gray-300 mb-3 font-semibold uppercase tracking-wider">
+                        <i class="fa-solid fa-hand-pointer text-electric-cyan mr-1"></i> Interactive Content: Click any object card to hear its sound!
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div onclick="playSynth('bell')" class="bg-navy-900/90 border-2 border-electric-yellow/40 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Bell sound">
+                            <i class="fa-solid fa-bell text-3xl text-electric-yellow mb-2 pulse-sound"></i>
+                            <span class="font-heading font-bold text-white text-sm">School Bell</span>
+                            <span class="text-[11px] text-electric-yellow font-medium mt-1 bg-electric-yellow/10 px-2 py-0.5 rounded-full">Ringing! 🔊</span>
+                        </div>
+
+                        <div onclick="playSynth('drum')" class="bg-navy-900/90 border-2 border-electric-pink/40 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Drum sound">
+                            <i class="fa-solid fa-drum text-3xl text-electric-pink mb-2 pulse-sound"></i>
+                            <span class="font-heading font-bold text-white text-sm">Drum Beats</span>
+                            <span class="text-[11px] text-electric-pink font-medium mt-1 bg-electric-pink/10 px-2 py-0.5 rounded-full">Boom! Boom! 🔊</span>
+                        </div>
+
+                        <div onclick="playSynth('bird')" class="bg-navy-900/90 border-2 border-electric-green/40 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Bird Chirp">
+                            <i class="fa-solid fa-crow text-3xl text-electric-green mb-2 pulse-sound"></i>
+                            <span class="font-heading font-bold text-white text-sm">Chirping Bird</span>
+                            <span class="text-[11px] text-electric-green font-medium mt-1 bg-electric-green/10 px-2 py-0.5 rounded-full">Tweet Tweet! 🔊</span>
+                        </div>
+
+                        <div onclick="playSynth('guitar')" class="bg-navy-900/90 border-2 border-electric-blue/40 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Guitar Strum">
+                            <i class="fa-solid fa-guitar text-3xl text-electric-blue mb-2 pulse-sound"></i>
+                            <span class="font-heading font-bold text-white text-sm">Guitar String</span>
+                            <span class="text-[11px] text-electric-blue font-medium mt-1 bg-electric-blue/10 px-2 py-0.5 rounded-full">Strumming! 🔊</span>
+                        </div>
+
+                        <div onclick="playSynth('horn')" class="bg-navy-900/90 border-2 border-electric-orange/40 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Horn sound">
+                            <i class="fa-solid fa-car text-3xl text-electric-orange mb-2 pulse-sound"></i>
+                            <span class="font-heading font-bold text-white text-sm">Vehicle Horn</span>
+                            <span class="text-[11px] text-electric-orange font-medium mt-1 bg-electric-orange/10 px-2 py-0.5 rounded-full">Beep Beep! 🔊</span>
+                        </div>
+
+                        <div onclick="playSynth('fan')" class="bg-navy-900/90 border-2 border-electric-purple/40 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Fan whir">
+                            <i class="fa-solid fa-fan text-3xl text-electric-purple mb-2 pulse-sound"></i>
+                            <span class="font-heading font-bold text-white text-sm">Ceiling Fan</span>
+                            <span class="text-[11px] text-electric-purple font-medium mt-1 bg-electric-purple/10 px-2 py-0.5 rounded-full">Whirring! 🔊</span>
+                        </div>
+
+                        <div onclick="playSynth('hum')" class="bg-navy-900/90 border-2 border-electric-cyan/40 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Speech sound">
+                            <i class="fa-solid fa-comments text-3xl text-electric-cyan mb-2 pulse-sound"></i>
+                            <span class="font-heading font-bold text-white text-sm">Human Voice</span>
+                            <span class="text-[11px] text-electric-cyan font-medium mt-1 bg-electric-cyan/10 px-2 py-0.5 rounded-full">Talking! 🔊</span>
+                        </div>
+
+                        <div onclick="playSynth('clock')" class="bg-navy-900/90 border-2 border-yellow-400/40 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Alarm Beep">
+                            <i class="fa-solid fa-clock text-3xl text-yellow-400 mb-2 pulse-sound"></i>
+                            <span class="font-heading font-bold text-white text-sm">Alarm Clock</span>
+                            <span class="text-[11px] text-yellow-400 font-medium mt-1 bg-yellow-400/10 px-2 py-0.5 rounded-full">Tick Tock! 🔊</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mission Statement Footer Callout -->
+                <div class="bg-navy-900/90 border border-electric-cyan/30 rounded-2xl p-4 flex items-center justify-between z-10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-electric-cyan/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-user-secret text-electric-cyan text-xl"></i>
+                        </div>
+                        <p class="text-sm md:text-base font-semibold text-gray-200">
+                            <span class="text-electric-yellow font-bold">Detective Mission Statement:</span> Today, we are going to investigate the invisible mystery behind sound!
+                        </p>
+                    </div>
+                    <button onclick="playSynth('bell')" class="hidden md:flex bg-electric-yellow hover:bg-yellow-400 text-navy-900 px-4 py-2 rounded-xl text-xs font-bold transition items-center gap-2 shadow-md">
+                        <i class="fa-solid fa-volume-high"></i> Ring Bell Sound Test 🔔
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 2 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-2">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 02 • EVERYDAY OBSERVATIONS</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        Sound Is All Around Us 🔊
+                    </h2>
+                    <p class="text-electric-yellow font-heading text-base md:text-lg font-medium mt-1">
+                        "Wherever we go, we encounter different kinds of sounds."
+                    </p>
+                </div>
+
+                <!-- 8 Interactive Sound Cards Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-auto">
+                    <div onclick="playSynth('clock')" class="bg-navy-900 border border-electric-cyan/30 rounded-2xl p-4 flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Alarm Clock">
+                        <div class="w-12 h-12 rounded-full bg-electric-cyan/10 border border-electric-cyan/40 flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-clock text-xl text-electric-cyan"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-sm text-white">Alarm Clock 🔊</h3>
+                        <p class="text-xs text-gray-400 mt-1">Morning wakeup call</p>
+                    </div>
+
+                    <div onclick="playSynth('bird')" class="bg-navy-900 border border-electric-green/30 rounded-2xl p-4 flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Birds">
+                        <div class="w-12 h-12 rounded-full bg-electric-green/10 border border-electric-green/40 flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-dove text-xl text-electric-green"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-sm text-white">Chirping Birds 🔊</h3>
+                        <p class="text-xs text-gray-400 mt-1">Sweet nature tunes</p>
+                    </div>
+
+                    <div onclick="playSynth('bell')" class="bg-navy-900 border border-electric-yellow/30 rounded-2xl p-4 flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Bell">
+                        <div class="w-12 h-12 rounded-full bg-electric-yellow/10 border border-electric-yellow/40 flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-school text-xl text-electric-yellow"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-sm text-white">School Bell 🔊</h3>
+                        <p class="text-xs text-gray-400 mt-1">Signals period change</p>
+                    </div>
+
+                    <div onclick="playSynth('hum')" class="bg-navy-900 border border-electric-pink/30 rounded-2xl p-4 flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Speech">
+                        <div class="w-12 h-12 rounded-full bg-electric-pink/10 border border-electric-pink/40 flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-comments text-xl text-electric-pink"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-sm text-white">Conversations 🔊</h3>
+                        <p class="text-xs text-gray-400 mt-1">Friends talking in class</p>
+                    </div>
+
+                    <div onclick="playSynth('horn')" class="bg-navy-900 border border-electric-orange/30 rounded-2xl p-4 flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Horns">
+                        <div class="w-12 h-12 rounded-full bg-electric-orange/10 border border-electric-orange/40 flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-bus text-xl text-electric-orange"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-sm text-white">Traffic & Horns 🔊</h3>
+                        <p class="text-xs text-gray-400 mt-1">Buses & cars on roads</p>
+                    </div>
+
+                    <div onclick="playSynth('music')" class="bg-navy-900 border border-electric-purple/30 rounded-2xl p-4 flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Music">
+                        <div class="w-12 h-12 rounded-full bg-electric-purple/10 border border-electric-purple/40 flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-music text-xl text-electric-purple"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-sm text-white">Music & Songs 🔊</h3>
+                        <p class="text-xs text-gray-400 mt-1">Melodic tunes</p>
+                    </div>
+
+                    <div onclick="playSynth('footstep')" class="bg-navy-900 border border-electric-blue/30 rounded-2xl p-4 flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Footsteps">
+                        <div class="w-12 h-12 rounded-full bg-electric-blue/10 border border-electric-blue/40 flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-shoe-prints text-xl text-electric-blue"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-sm text-white">Footsteps 🔊</h3>
+                        <p class="text-xs text-gray-400 mt-1">Walking in corridors</p>
+                    </div>
+
+                    <div onclick="playSynth('fan')" class="bg-navy-900 border border-electric-cyan/30 rounded-2xl p-4 flex flex-col items-center text-center card-hover cursor-pointer" title="Click to hear Fan">
+                        <div class="w-12 h-12 rounded-full bg-electric-cyan/10 border border-electric-cyan/40 flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-fan text-xl text-electric-cyan"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-sm text-white">Ceiling Fan 🔊</h3>
+                        <p class="text-xs text-gray-400 mt-1">Gentle humming whir</p>
+                    </div>
+                </div>
+
+                <!-- Interactive Question Box -->
+                <div class="bg-gradient-to-r from-electric-cyan/20 to-electric-indigo/20 border-2 border-electric-cyan/50 p-4 rounded-2xl flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-electric-cyan text-navy-900 flex items-center justify-center shrink-0 font-bold text-2xl">
+                        ❓
+                    </div>
+                    <div>
+                        <h4 class="font-heading font-bold text-electric-yellow text-base">Sound Detective Question for the Class:</h4>
+                        <p class="text-sm text-white font-medium">How many different sounds can you hear right now in your room if you close your eyes for 5 seconds?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 3 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-3">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 03 • CORE CONCEPT</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        What Is Sound? 🧠
+                    </h2>
+                </div>
+
+                <!-- Simple Definition Card -->
+                <div class="bg-navy-900/90 border-2 border-electric-cyan/40 p-5 rounded-2xl shadow-lg">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-lightbulb text-3xl text-electric-yellow"></i>
+                        <p class="text-lg md:text-xl font-heading font-bold text-white">
+                            <span class="text-electric-cyan">Sound</span> is a form of <span class="text-electric-yellow">energy</span> that produces the sensation of hearing in our ears.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Visual Explanation Diagram: SOURCE -> SOUND -> EARS -->
+                <div class="bg-navy-900/60 border border-navy-700 p-6 rounded-2xl my-4">
+                    <h3 class="text-xs font-bold text-electric-cyan uppercase tracking-wider mb-4 text-center">
+                        <i class="fa-solid fa-diagram-project mr-1"></i> How Sound Reaches Us
+                    </h3>
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-center">
+                        <!-- Step 1: Source -->
+                        <div onclick="playSynth('bell')" class="flex-1 bg-navy-800 p-4 rounded-xl border border-electric-yellow/40 cursor-pointer card-hover" title="Click bell">
+                            <i class="fa-solid fa-bell text-4xl text-electric-yellow mb-2"></i>
+                            <h4 class="font-heading font-bold text-white text-base">1. Sound Source 🔊</h4>
+                            <p class="text-xs text-gray-300 mt-1">A ringing school bell</p>
+                        </div>
+
+                        <!-- Arrow 1 -->
+                        <div class="text-electric-cyan text-2xl rotate-90 md:rotate-0">
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </div>
+
+                        <!-- Step 2: Waves -->
+                        <div class="flex-1 bg-navy-800 p-4 rounded-xl border border-electric-cyan/40">
+                            <i class="fa-solid fa-water text-4xl text-electric-cyan mb-2 animate-pulse"></i>
+                            <h4 class="font-heading font-bold text-white text-base">2. Sound Waves 🌊</h4>
+                            <p class="text-xs text-gray-300 mt-1">Travels through the air</p>
+                        </div>
+
+                        <!-- Arrow 2 -->
+                        <div class="text-electric-cyan text-2xl rotate-90 md:rotate-0">
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </div>
+
+                        <!-- Step 3: Ears -->
+                        <div class="flex-1 bg-navy-800 p-4 rounded-xl border border-electric-green/40">
+                            <i class="fa-solid fa-ear-listen text-4xl text-electric-green mb-2"></i>
+                            <h4 class="font-heading font-bold text-white text-base">3. Our Ears 👂</h4>
+                            <p class="text-xs text-gray-300 mt-1">Detects the sound!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 Everyday Content Example Cards -->
+                <div class="grid grid-cols-3 gap-4">
+                    <div onclick="playSynth('hum')" class="bg-navy-900 border border-electric-pink/30 p-3 rounded-xl flex items-center gap-3 cursor-pointer card-hover">
+                        <i class="fa-solid fa-comment text-2xl text-electric-pink"></i>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Talking 🔊</h4>
+                            <p class="text-[11px] text-gray-400">Human Speech</p>
+                        </div>
+                    </div>
+
+                    <div onclick="playSynth('music')" class="bg-navy-900 border border-electric-purple/30 p-3 rounded-xl flex items-center gap-3 cursor-pointer card-hover">
+                        <i class="fa-solid fa-music text-2xl text-electric-purple"></i>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Music 🔊</h4>
+                            <p class="text-[11px] text-gray-400">Melodic Sounds</p>
+                        </div>
+                    </div>
+
+                    <div onclick="playSynth('bell')" class="bg-navy-900 border border-electric-yellow/30 p-3 rounded-xl flex items-center gap-3 cursor-pointer card-hover">
+                        <i class="fa-solid fa-bell text-2xl text-electric-yellow"></i>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Bells 🔊</h4>
+                            <p class="text-[11px] text-gray-400">Ringing Alert</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 4 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-4">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 04 • CLASSIFICATION</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        Sources of Sound 🏷️
+                    </h2>
+                    <p class="text-electric-yellow font-heading text-base font-medium mt-1">
+                        Sounds can come from various living and non-living sources!
+                    </p>
+                </div>
+
+                <!-- 6 Category Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 my-auto">
+                    <!-- Category 1 -->
+                    <div onclick="playSynth('hum')" class="bg-navy-900 border-2 border-electric-cyan/40 p-4 rounded-2xl flex items-center gap-4 card-hover cursor-pointer" title="Click to hear Human sound">
+                        <div class="w-12 h-12 rounded-xl bg-electric-cyan/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-user text-2xl text-electric-cyan"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-electric-cyan font-bold uppercase tracking-wider block">CATEGORY 1</span>
+                            <h3 class="font-heading font-bold text-base text-white">Human 🔊</h3>
+                            <p class="text-xs text-gray-300 mt-0.5">Person speaking, singing</p>
+                        </div>
+                    </div>
+
+                    <!-- Category 2 -->
+                    <div onclick="playSynth('bird')" class="bg-navy-900 border-2 border-electric-green/40 p-4 rounded-2xl flex items-center gap-4 card-hover cursor-pointer" title="Click to hear Animal sound">
+                        <div class="w-12 h-12 rounded-xl bg-electric-green/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-crow text-2xl text-electric-green"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-electric-green font-bold uppercase tracking-wider block">CATEGORY 2</span>
+                            <h3 class="font-heading font-bold text-base text-white">Animal 🔊</h3>
+                            <p class="text-xs text-gray-300 mt-0.5">Bird chirping, dog barking</p>
+                        </div>
+                    </div>
+
+                    <!-- Category 3 -->
+                    <div onclick="playSynth('guitar')" class="bg-navy-900 border-2 border-electric-purple/40 p-4 rounded-2xl flex items-center gap-4 card-hover cursor-pointer" title="Click to hear Instrument sound">
+                        <div class="w-12 h-12 rounded-xl bg-electric-purple/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-guitar text-2xl text-electric-purple"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-electric-purple font-bold uppercase tracking-wider block">CATEGORY 3</span>
+                            <h3 class="font-heading font-bold text-base text-white">Instrument 🔊</h3>
+                            <p class="text-xs text-gray-300 mt-0.5">Guitar, drum, flute</p>
+                        </div>
+                    </div>
+
+                    <!-- Category 4 -->
+                    <div onclick="playSynth('bell')" class="bg-navy-900 border-2 border-electric-yellow/40 p-4 rounded-2xl flex items-center gap-4 card-hover cursor-pointer" title="Click to hear Object sound">
+                        <div class="w-12 h-12 rounded-xl bg-electric-yellow/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-bell text-2xl text-electric-yellow"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-electric-yellow font-bold uppercase tracking-wider block">CATEGORY 4</span>
+                            <h3 class="font-heading font-bold text-base text-white">Object 🔊</h3>
+                            <p class="text-xs text-gray-300 mt-0.5">Ringing bell, door knock</p>
+                        </div>
+                    </div>
+
+                    <!-- Category 5 -->
+                    <div onclick="playSynth('horn')" class="bg-navy-900 border-2 border-electric-orange/40 p-4 rounded-2xl flex items-center gap-4 card-hover cursor-pointer" title="Click to hear Machine sound">
+                        <div class="w-12 h-12 rounded-xl bg-electric-orange/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-car text-2xl text-electric-orange"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-electric-orange font-bold uppercase tracking-wider block">CATEGORY 5</span>
+                            <h3 class="font-heading font-bold text-base text-white">Machine 🔊</h3>
+                            <p class="text-xs text-gray-300 mt-0.5">Vehicle engine, mixer</p>
+                        </div>
+                    </div>
+
+                    <!-- Category 6 -->
+                    <div onclick="playSynth('thunder')" class="bg-navy-900 border-2 border-electric-pink/40 p-4 rounded-2xl flex items-center gap-4 card-hover cursor-pointer" title="Click to hear Nature sound">
+                        <div class="w-12 h-12 rounded-xl bg-electric-pink/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-cloud-bolt text-2xl text-electric-pink"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-electric-pink font-bold uppercase tracking-wider block">CATEGORY 6</span>
+                            <h3 class="font-heading font-bold text-base text-white">Nature 🔊</h3>
+                            <p class="text-xs text-gray-300 mt-0.5">Thunder, rain drop, wind</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Central Concept Connection Banner -->
+                <div class="bg-navy-900 border border-electric-cyan/40 p-4 rounded-2xl text-center">
+                    <p class="text-base font-heading font-bold text-electric-cyan">
+                        💡 Key Detective Rule: <span class="text-white">"Something MUST produce the sound!"</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 5 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-5">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 05 • CLASSROOM GAME</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        Can You Identify The Sound? 🕵️‍♂️
+                    </h2>
+                    <p class="text-electric-yellow font-heading text-base font-medium mt-1">
+                        Click on each mystery audio icon to test your Detective ear!
+                    </p>
+                </div>
+
+                <!-- 5 Interactive Guessing Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 my-auto">
+                    <!-- Item 1 -->
+                    <div class="bg-navy-900 border-2 border-electric-cyan/30 rounded-2xl p-4 flex flex-col items-center text-center">
+                        <span class="text-xs font-bold text-electric-cyan mb-2">MYSTERY 1</span>
+                        <div onclick="revealSound('ans-1', 'bell')" class="w-16 h-16 rounded-2xl bg-electric-cyan/10 border border-electric-cyan/40 flex items-center justify-center cursor-pointer hover:scale-110 transition my-2">
+                            <i class="fa-solid fa-circle-play text-3xl text-electric-cyan"></i>
+                        </div>
+                        <p class="text-xs text-gray-300 mb-2">Click to Hear 🔊</p>
+                        <div id="ans-1" class="hidden bg-electric-cyan/20 border border-electric-cyan/50 px-3 py-1.5 rounded-lg text-xs font-bold text-electric-cyan w-full">
+                            🔔 School Bell
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="bg-navy-900 border-2 border-electric-pink/30 rounded-2xl p-4 flex flex-col items-center text-center">
+                        <span class="text-xs font-bold text-electric-pink mb-2">MYSTERY 2</span>
+                        <div onclick="revealSound('ans-2', 'drum')" class="w-16 h-16 rounded-2xl bg-electric-pink/10 border border-electric-pink/40 flex items-center justify-center cursor-pointer hover:scale-110 transition my-2">
+                            <i class="fa-solid fa-circle-play text-3xl text-electric-pink"></i>
+                        </div>
+                        <p class="text-xs text-gray-300 mb-2">Click to Hear 🔊</p>
+                        <div id="ans-2" class="hidden bg-electric-pink/20 border border-electric-pink/50 px-3 py-1.5 rounded-lg text-xs font-bold text-electric-pink w-full">
+                            🥁 Drum Beats
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="bg-navy-900 border-2 border-electric-green/30 rounded-2xl p-4 flex flex-col items-center text-center">
+                        <span class="text-xs font-bold text-electric-green mb-2">MYSTERY 3</span>
+                        <div onclick="revealSound('ans-3', 'bird')" class="w-16 h-16 rounded-2xl bg-electric-green/10 border border-electric-green/40 flex items-center justify-center cursor-pointer hover:scale-110 transition my-2">
+                            <i class="fa-solid fa-circle-play text-3xl text-electric-green"></i>
+                        </div>
+                        <p class="text-xs text-gray-300 mb-2">Click to Hear 🔊</p>
+                        <div id="ans-3" class="hidden bg-electric-green/20 border border-electric-green/50 px-3 py-1.5 rounded-lg text-xs font-bold text-electric-green w-full">
+                            🐦 Chirping Bird
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="bg-navy-900 border-2 border-electric-purple/30 rounded-2xl p-4 flex flex-col items-center text-center">
+                        <span class="text-xs font-bold text-electric-purple mb-2">MYSTERY 4</span>
+                        <div onclick="revealSound('ans-4', 'guitar')" class="w-16 h-16 rounded-2xl bg-electric-purple/10 border border-electric-purple/40 flex items-center justify-center cursor-pointer hover:scale-110 transition my-2">
+                            <i class="fa-solid fa-circle-play text-3xl text-electric-purple"></i>
+                        </div>
+                        <p class="text-xs text-gray-300 mb-2">Click to Hear 🔊</p>
+                        <div id="ans-4" class="hidden bg-electric-purple/20 border border-electric-purple/50 px-3 py-1.5 rounded-lg text-xs font-bold text-electric-purple w-full">
+                            🎸 Guitar String
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="bg-navy-900 border-2 border-electric-orange/30 rounded-2xl p-4 flex flex-col items-center text-center">
+                        <span class="text-xs font-bold text-electric-orange mb-2">MYSTERY 5</span>
+                        <div onclick="revealSound('ans-5', 'horn')" class="w-16 h-16 rounded-2xl bg-electric-orange/10 border border-electric-orange/40 flex items-center justify-center cursor-pointer hover:scale-110 transition my-2">
+                            <i class="fa-solid fa-circle-play text-3xl text-electric-orange"></i>
+                        </div>
+                        <p class="text-xs text-gray-300 mb-2">Click to Hear 🔊</p>
+                        <div id="ans-5" class="hidden bg-electric-orange/20 border border-electric-orange/50 px-3 py-1.5 rounded-lg text-xs font-bold text-electric-orange w-full">
+                            🚗 Car Horn
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="revealAllSounds()" class="bg-electric-cyan text-navy-900 font-heading font-bold px-6 py-2 rounded-xl text-sm hover:bg-electric-blue transition shadow-lg active:scale-95">
+                        <i class="fa-solid fa-eye mr-2"></i> Reveal All Mystery Answers
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 6 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-6">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 06 • INVESTIGATION</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        But HOW Is Sound Produced? 🤔
+                    </h2>
+                </div>
+
+                <!-- Visual Commonality Comparison -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-auto">
+                    <div onclick="playSynth('drum')" class="bg-navy-900 border border-navy-700 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer">
+                        <i class="fa-solid fa-drum text-4xl text-electric-pink mb-2"></i>
+                        <h4 class="font-bold text-sm text-white">Drum Skin</h4>
+                        <p class="text-[11px] text-gray-400">Moves when hit</p>
+                    </div>
+
+                    <div onclick="playSynth('guitar')" class="bg-navy-900 border border-navy-700 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer">
+                        <i class="fa-solid fa-guitar text-4xl text-electric-blue mb-2"></i>
+                        <h4 class="font-bold text-sm text-white">Guitar String</h4>
+                        <p class="text-[11px] text-gray-400">Moves when plucked</p>
+                    </div>
+
+                    <div onclick="playSynth('bell')" class="bg-navy-900 border border-navy-700 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer">
+                        <i class="fa-solid fa-bell text-4xl text-electric-yellow mb-2"></i>
+                        <h4 class="font-bold text-sm text-white">Metal Bell</h4>
+                        <p class="text-[11px] text-gray-400">Moves when struck</p>
+                    </div>
+
+                    <div onclick="playSynth('hum')" class="bg-navy-900 border border-navy-700 p-4 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer">
+                        <i class="fa-solid fa-microphone text-4xl text-electric-cyan mb-2"></i>
+                        <h4 class="font-bold text-sm text-white">Human Throat</h4>
+                        <p class="text-[11px] text-gray-400">Moves when speaking</p>
+                    </div>
+                </div>
+
+                <!-- Big Question & Reveal Section -->
+                <div class="bg-navy-900 border-2 border-electric-yellow/40 p-6 rounded-2xl text-center flex flex-col items-center justify-center">
+                    <h3 class="font-heading text-xl md:text-2xl font-bold text-electric-yellow mb-3">
+                        What do ALL of these sound sources have in common?
+                    </h3>
+
+                    <button id="reveal-btn" onclick="revealVibration()" class="bg-electric-yellow hover:bg-yellow-400 text-navy-900 font-heading font-extrabold px-8 py-3 rounded-xl text-base transition shadow-xl active:scale-95">
+                        <i class="fa-solid fa-key mr-2"></i> Reveal Detective Clue!
+                    </button>
+
+                    <div id="vibrate-reveal" class="hidden mt-2">
+                        <span class="text-4xl md:text-6xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-r from-electric-cyan via-electric-yellow to-electric-pink animate-pulse">
+                            THEY VIBRATE! ⚡
+                        </span>
+                        <p class="text-sm text-gray-300 mt-2 font-medium">Every sounding object is moving rapidly back and forth!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 7 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-7">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 07 • SCIENTIFIC DEFINITION</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        What Is A Vibration? 〰️
+                    </h2>
+                </div>
+
+                <!-- Definition Banner -->
+                <div class="bg-navy-900 border-2 border-electric-cyan p-5 rounded-2xl">
+                    <p class="text-lg md:text-xl font-heading font-bold text-white text-center">
+                        A <span class="text-electric-cyan">Vibration</span> is a rapid repeated <span class="text-electric-yellow">back-and-forth</span> or <span class="text-electric-green">to-and-fro</span> motion of an object.
+                    </p>
+                </div>
+
+                <!-- Animated Motion Diagram -->
+                <div class="bg-navy-900/60 border border-navy-700 p-6 rounded-2xl flex flex-col items-center justify-center my-auto">
+                    <span class="text-xs font-bold text-electric-cyan uppercase mb-4 tracking-wider">Back-And-Forth Motion Diagram</span>
+                    
+                    <div class="flex items-center justify-center gap-6 w-full max-w-md my-2">
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs font-bold text-gray-400 mb-1">LEFT</span>
+                            <div class="w-10 h-10 rounded-full bg-electric-cyan/20 border-2 border-electric-cyan flex items-center justify-center text-electric-cyan font-bold">
+                                ◄
+                            </div>
+                        </div>
+
+                        <div class="flex-1 flex flex-col items-center">
+                            <div class="w-full h-2 bg-navy-700 rounded-full relative overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-r from-electric-cyan via-electric-yellow to-electric-cyan animate-pulse"></div>
+                            </div>
+                            <span class="text-xs font-bold text-electric-yellow mt-2">CENTER POSITION</span>
+                        </div>
+
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs font-bold text-gray-400 mb-1">RIGHT</span>
+                            <div class="w-10 h-10 rounded-full bg-electric-cyan/20 border-2 border-electric-cyan flex items-center justify-center text-electric-cyan font-bold">
+                                ►
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-electric-yellow font-semibold mt-3">◄━━━━ Repeated Rapid Oscillating Motion ━━━━►</p>
+                </div>
+
+                <!-- 3 Visual Example Cards -->
+                <div class="grid grid-cols-3 gap-4">
+                    <div onclick="playSynth('guitar')" class="bg-navy-900 border border-electric-blue/30 p-3 rounded-xl flex items-center gap-3 cursor-pointer card-hover" title="Click to hear guitar string">
+                        <i class="fa-solid fa-guitar text-2xl text-electric-blue"></i>
+                        <div>
+                            <h4 class="font-bold text-xs text-white">Guitar String 🔊</h4>
+                            <p class="text-[10px] text-gray-400">Plucked string vibrates</p>
+                        </div>
+                    </div>
+
+                    <div onclick="playSynth('pluck')" class="bg-navy-900 border border-electric-yellow/30 p-3 rounded-xl flex items-center gap-3 cursor-pointer card-hover" title="Click to hear ruler twang">
+                        <i class="fa-solid fa-ruler-horizontal text-2xl text-electric-yellow"></i>
+                        <div>
+                            <h4 class="font-bold text-xs text-white">Flicked Ruler 🔊</h4>
+                            <p class="text-[10px] text-gray-400">Desk ruler vibrates</p>
+                        </div>
+                    </div>
+
+                    <div onclick="playSynth('pluck')" class="bg-navy-900 border border-electric-pink/30 p-3 rounded-xl flex items-center gap-3 cursor-pointer card-hover" title="Click to hear rubber band pluck">
+                        <i class="fa-solid fa-note-sticky text-2xl text-electric-pink"></i>
+                        <div>
+                            <h4 class="font-bold text-xs text-white">Rubber Band 🔊</h4>
+                            <p class="text-[10px] text-gray-400">Stretched band vibrates</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 8 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-8">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 08 • CLASSROOM EXPERIMENT</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        Experiment: Make a Rubber Band Vibrate 🧪
+                    </h2>
+                </div>
+
+                <!-- 4 Step Experiment Layout + Interactive Pluck Simulation -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto items-center">
+                    <!-- Steps -->
+                    <div class="space-y-3">
+                        <div class="bg-navy-900 border-l-4 border-electric-cyan p-3 rounded-r-xl">
+                            <span class="text-xs font-bold text-electric-cyan block">STEP 1</span>
+                            <p class="text-sm font-semibold text-white">Stretch a rubber band around an empty box or pencil box.</p>
+                        </div>
+                        <div class="bg-navy-900 border-l-4 border-electric-yellow p-3 rounded-r-xl">
+                            <span class="text-xs font-bold text-electric-yellow block">STEP 2</span>
+                            <p class="text-sm font-semibold text-white">Pluck the stretched rubber band in the middle with your finger.</p>
+                        </div>
+                        <div class="bg-navy-900 border-l-4 border-electric-pink p-3 rounded-r-xl">
+                            <span class="text-xs font-bold text-electric-pink block">STEP 3</span>
+                            <p class="text-sm font-semibold text-white">Observe carefully: You can see it moving rapidly back and forth!</p>
+                        </div>
+                        <div class="bg-navy-900 border-l-4 border-electric-green p-3 rounded-r-xl">
+                            <span class="text-xs font-bold text-electric-green block">STEP 4</span>
+                            <p class="text-sm font-semibold text-white">Listen closely: A clear humming sound is produced!</p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Pluck Graphic Canvas -->
+                    <div class="bg-navy-900 border-2 border-electric-cyan/40 p-6 rounded-2xl flex flex-col items-center justify-center text-center">
+                        <span class="text-xs font-bold text-electric-yellow uppercase mb-2">Interactive Pluck Demonstration</span>
+                        <svg width="300" height="180" class="my-2 bg-navy-800 rounded-xl border border-navy-700">
+                            <!-- Box Graphic -->
+                            <rect x="50" y="50" width="200" height="100" rx="10" fill="#1C2541" stroke="#3A4B7C" stroke-width="3"/>
+                            <!-- Rubber band path -->
+                            <path id="rubber-band-path" d="M 50 100 Q 150 100 250 100" fill="none" stroke="#4CC9F0" stroke-width="6" stroke-linecap="round"/>
+                        </svg>
+
+                        <button onclick="pluckRubberBand()" class="mt-2 bg-electric-cyan hover:bg-electric-blue text-navy-900 font-heading font-extrabold px-6 py-2.5 rounded-xl text-sm transition shadow-lg active:scale-95">
+                            <i class="fa-solid fa-hand-pointer mr-2"></i> Pluck Rubber Band! 🔊
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bottom Conclusion Banner -->
+                <div class="bg-gradient-to-r from-electric-cyan/20 via-electric-indigo/20 to-electric-pink/20 border-2 border-electric-cyan/50 p-3 rounded-2xl text-center">
+                    <p class="text-base font-heading font-bold text-white">
+                        Experiment Conclusion: <span class="text-electric-yellow">Pluck Band ➔ Creates Vibrations ➔ Sound Is Produced!</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 9 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-9">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 09 • CAUSE & EFFECT</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        What Happens When Vibration Stops? 🛑
+                    </h2>
+                </div>
+
+                <!-- Before & After Comparison Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+                    <!-- LEFT: Vibrating -->
+                    <div onclick="playSynth('pluck')" class="bg-navy-900 border-2 border-electric-green p-6 rounded-2xl flex flex-col items-center text-center card-hover cursor-pointer" title="Click to pluck">
+                        <div class="w-16 h-16 rounded-full bg-electric-green/20 border border-electric-green flex items-center justify-center mb-3">
+                            <i class="fa-solid fa-volume-high text-3xl text-electric-green"></i>
+                        </div>
+                        <span class="text-xs font-bold text-electric-green uppercase tracking-wider">STATE 1: VIBRATING OBJECT</span>
+                        <h3 class="font-heading font-bold text-xl text-white mt-1">Rubber Band Plucked</h3>
+                        <div class="my-4 p-3 bg-navy-800 rounded-xl w-full border border-navy-700">
+                            <p class="text-sm font-bold text-electric-cyan animate-pulse">〰️ Rapid Vibration Active 〰️</p>
+                        </div>
+                        <span class="bg-electric-green/20 text-electric-green font-bold text-sm px-4 py-1.5 rounded-full border border-electric-green/40">
+                            SOUND IS HEARD 🔊
+                        </span>
+                    </div>
+
+                    <!-- RIGHT: Stopped -->
+                    <div class="bg-navy-900 border-2 border-electric-pink p-6 rounded-2xl flex flex-col items-center text-center">
+                        <div class="w-16 h-16 rounded-full bg-electric-pink/20 border border-electric-pink flex items-center justify-center mb-3">
+                            <i class="fa-solid fa-volume-xmark text-3xl text-electric-pink"></i>
+                        </div>
+                        <span class="text-xs font-bold text-electric-pink uppercase tracking-wider">STATE 2: OBJECT STOPPED</span>
+                        <h3 class="font-heading font-bold text-xl text-white mt-1">Hold Rubber Band Still</h3>
+                        <div class="my-4 p-3 bg-navy-800 rounded-xl w-full border border-navy-700">
+                            <p class="text-sm font-bold text-gray-400">❌ No Movement / Motion</p>
+                        </div>
+                        <span class="bg-electric-pink/20 text-electric-pink font-bold text-sm px-4 py-1.5 rounded-full border border-electric-pink/40">
+                            NO SOUND (SILENCE) 🔇
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Central Takeaway Box -->
+                <div class="bg-navy-900 border-2 border-electric-yellow/50 p-4 rounded-2xl text-center">
+                    <p class="text-base md:text-lg font-heading font-extrabold text-electric-yellow">
+                        💡 Key Scientific Rule: "When the vibration stops, the sound ALSO stops immediately!"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 10 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-10">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 10 • INVESTIGATION 2</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        Investigation: Vibrating Metal Plate 🍽️
+                    </h2>
+                </div>
+
+                <!-- Experiment Diagram & Interactive Metal Dish Strike -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto items-center">
+                    <div class="bg-navy-900 border border-navy-700 p-6 rounded-2xl flex flex-col items-center justify-center text-center">
+                        <!-- Metal Plate Graphic -->
+                        <div id="plate-graphic" class="w-44 h-44 rounded-full bg-gradient-to-tr from-gray-400 via-gray-200 to-gray-500 border-4 border-gray-300 flex items-center justify-center shadow-2xl my-3">
+                            <i class="fa-solid fa-drum text-5xl text-navy-900"></i>
+                        </div>
+
+                        <button onclick="strikeMetalPlate()" class="bg-electric-yellow hover:bg-yellow-400 text-navy-900 font-heading font-extrabold px-6 py-2.5 rounded-xl text-sm transition shadow-lg active:scale-95 mt-2">
+                            <i class="fa-solid fa-hand-back-fist mr-2"></i> Strike Metal Plate! 🔊
+                        </button>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-navy-900 p-4 rounded-2xl border border-electric-cyan/30">
+                            <h4 class="font-heading font-bold text-electric-cyan text-base">Sequence Diagram:</h4>
+                            <div class="flex items-center gap-2 mt-2 font-bold text-sm text-white">
+                                <span class="bg-electric-cyan/20 px-3 py-1 rounded-lg text-electric-cyan">1. STRIKE PLATE</span>
+                                ➔
+                                <span class="bg-electric-yellow/20 px-3 py-1 rounded-lg text-electric-yellow">2. VIBRATES</span>
+                                ➔
+                                <span class="bg-electric-green/20 px-3 py-1 rounded-lg text-electric-green">3. SOUND</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-navy-900 p-4 rounded-2xl border border-electric-yellow/40">
+                            <h4 class="font-heading font-bold text-electric-yellow text-base">🖐️ Touch & Feel Observation:</h4>
+                            <p class="text-sm text-gray-200 mt-1">
+                                Touch the metal dish gently with your fingers after striking it. You will feel a strong buzzing sensation on your fingertips!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-navy-900 border border-electric-cyan/30 p-3 rounded-2xl text-center text-xs text-gray-300">
+                    <span class="text-electric-cyan font-bold">Classroom Safety Note:</span> Handle metal objects carefully and do not strike with excessive force.
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 11 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-11">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 11 • HUMAN BIOLOGY</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        How Do We Make Sound When We Speak? 🗣️
+                    </h2>
+                </div>
+
+                <!-- Throat Graphic + Voice Box Explanation -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto items-center">
+                    <div class="bg-navy-900 border-2 border-electric-pink/40 p-6 rounded-2xl flex flex-col items-center text-center">
+                        <div class="w-24 h-24 rounded-full bg-electric-pink/20 border-2 border-electric-pink flex items-center justify-center my-2 pulse-sound">
+                            <i class="fa-solid fa-head-side-cough text-5xl text-electric-pink"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-white mt-2">Human Voice Box (Larynx)</h3>
+                        <p class="text-xs text-gray-300 mt-1">Inside our throat are two stretched folds called <span class="text-electric-pink font-bold">Vocal Cords</span>.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-navy-900 p-4 rounded-2xl border border-electric-cyan/30">
+                            <h4 class="font-heading font-bold text-electric-cyan text-base">How Voice Is Created:</h4>
+                            <p class="text-sm text-gray-200 mt-1">
+                                When we talk or sing, air from our lungs forces its way through the vocal cords, causing them to <span class="text-electric-yellow font-bold">vibrate</span> and produce sound!
+                            </p>
+                        </div>
+
+                        <!-- Interactive Vocal Experiment -->
+                        <div onclick="playVoiceHum()" class="bg-gradient-to-r from-electric-pink/20 to-electric-purple/20 border-2 border-electric-pink p-4 rounded-2xl cursor-pointer card-hover" title="Click to test vocal hum">
+                            <h4 class="font-heading font-bold text-electric-pink text-base">🖐️ Try This Class Experiment:</h4>
+                            <p class="text-sm text-white mt-1">
+                                Place two fingers gently on your throat and say <span class="text-electric-yellow font-extrabold text-base">"AAAAAA"</span> out loud.
+                            </p>
+                            <span class="inline-block mt-2 text-xs font-bold bg-electric-pink text-white px-3 py-1 rounded-lg">
+                                Click Here to Test Vocal Vibration Sound 🔊
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-navy-900 border border-electric-green/40 p-4 rounded-2xl text-center">
+                    <p class="text-base font-heading font-bold text-electric-green">
+                        Main Takeaway: "Our human voice is also produced by vibrating vocal cords!"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 12 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-12">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 12 • VISUAL DEMONSTRATION</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        Watch The Invisible Vibration 🎥
+                    </h2>
+                    <p class="text-electric-yellow font-heading text-base font-medium mt-1">
+                        Slow-motion scientific observations of vibrating sound sources!
+                    </p>
+                </div>
+
+                <!-- 3 Canvas Visual Demonstrations -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto">
+                    <!-- Canvas 1: Guitar -->
+                    <div onclick="playSynth('guitar')" class="bg-navy-900 border border-electric-cyan/40 p-4 rounded-2xl flex flex-col items-center text-center cursor-pointer card-hover" title="Click to play guitar string">
+                        <span class="text-xs font-bold text-electric-cyan mb-2">DEMO 1: GUITAR STRING</span>
+                        <canvas id="guitar-canvas" width="220" height="100" class="bg-navy-800 rounded-xl border border-navy-700 mb-2"></canvas>
+                        <p class="text-xs font-bold text-white">What is vibrating?</p>
+                        <span class="text-[11px] text-electric-cyan mt-1 bg-electric-cyan/10 px-2 py-0.5 rounded-full font-semibold">The plucked string! 🔊</span>
+                    </div>
+
+                    <!-- Canvas 2: Tuning Fork -->
+                    <div onclick="playSynth('bell')" class="bg-navy-900 border border-electric-yellow/40 p-4 rounded-2xl flex flex-col items-center text-center cursor-pointer card-hover" title="Click to play tuning fork">
+                        <span class="text-xs font-bold text-electric-yellow mb-2">DEMO 2: TUNING FORK IN WATER</span>
+                        <canvas id="tuning-canvas" width="220" height="100" class="bg-navy-800 rounded-xl border border-navy-700 mb-2"></canvas>
+                        <p class="text-xs font-bold text-white">What is vibrating?</p>
+                        <span class="text-[11px] text-electric-yellow mt-1 bg-electric-yellow/10 px-2 py-0.5 rounded-full font-semibold">Metal prongs creating water ripples! 🔊</span>
+                    </div>
+
+                    <!-- Canvas 3: Drum Rice -->
+                    <div onclick="playSynth('drum')" class="bg-navy-900 border border-electric-green/40 p-4 rounded-2xl flex flex-col items-center text-center cursor-pointer card-hover" title="Click to beat drum">
+                        <span class="text-xs font-bold text-electric-green mb-2">DEMO 3: BOUNCING RICE ON DRUM</span>
+                        <canvas id="drum-canvas" width="220" height="100" class="bg-navy-800 rounded-xl border border-navy-700 mb-2"></canvas>
+                        <p class="text-xs font-bold text-white">What is vibrating?</p>
+                        <span class="text-[11px] text-electric-green mt-1 bg-electric-green/10 px-2 py-0.5 rounded-full font-semibold">The drum membrane skin! 🔊</span>
+                    </div>
+                </div>
+
+                <div class="bg-navy-900 border border-electric-cyan/30 p-3 rounded-2xl text-center text-xs text-gray-300">
+                    <i class="fa-solid fa-video text-electric-cyan mr-1"></i> Interactive Visual Simulations: Click any card to restart animation & hear sound!
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 13 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-13">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 13 • SUMMARY DIAGRAM</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        The Sound Detective's Ultimate Discovery 🏆
+                    </h2>
+                </div>
+
+                <!-- Grand Flow Diagram -->
+                <div class="bg-navy-900/90 border-2 border-electric-cyan p-6 rounded-2xl text-center my-auto shadow-2xl">
+                    <span class="text-xs font-bold text-electric-yellow uppercase tracking-widest block mb-3">THE CORE PRINCIPLE OF SOUND</span>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                        <div class="bg-navy-800 border-2 border-electric-cyan p-4 rounded-xl flex-1 max-w-xs">
+                            <span class="text-2xl font-black text-electric-cyan block">OBJECT</span>
+                            <span class="text-xs text-gray-300">Guitar, Drum, Bell, Throat</span>
+                        </div>
+
+                        <div class="text-3xl text-electric-yellow rotate-90 md:rotate-0 font-bold">➔</div>
+
+                        <div class="bg-navy-800 border-2 border-electric-yellow p-4 rounded-xl flex-1 max-w-xs">
+                            <span class="text-2xl font-black text-electric-yellow block">VIBRATION</span>
+                            <span class="text-xs text-gray-300">Back-and-forth movement</span>
+                        </div>
+
+                        <div class="text-3xl text-electric-green rotate-90 md:rotate-0 font-bold">➔</div>
+
+                        <div class="bg-navy-800 border-2 border-electric-green p-4 rounded-xl flex-1 max-w-xs">
+                            <span class="text-2xl font-black text-electric-green block">SOUND 🔊</span>
+                            <span class="text-xs text-gray-300">Audible sound energy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Surrounding Matrix Examples -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div onclick="playSynth('pluck')" class="bg-navy-900 p-3 rounded-xl border border-navy-700 text-center cursor-pointer card-hover">
+                        <span class="text-xs font-bold text-electric-cyan block">Rubber Band 🔊</span>
+                        <span class="text-[11px] text-gray-400">Plucked ➔ Vibrates ➔ Sound</span>
+                    </div>
+
+                    <div onclick="playSynth('drum')" class="bg-navy-900 p-3 rounded-xl border border-navy-700 text-center cursor-pointer card-hover">
+                        <span class="text-xs font-bold text-electric-pink block">Drum Skin 🔊</span>
+                        <span class="text-[11px] text-gray-400">Struck ➔ Vibrates ➔ Sound</span>
+                    </div>
+
+                    <div onclick="playSynth('guitar')" class="bg-navy-900 p-3 rounded-xl border border-navy-700 text-center cursor-pointer card-hover">
+                        <span class="text-xs font-bold text-electric-blue block">Guitar String 🔊</span>
+                        <span class="text-[11px] text-gray-400">Strummed ➔ Vibrates ➔ Sound</span>
+                    </div>
+
+                    <div onclick="playSynth('hum')" class="bg-navy-900 p-3 rounded-xl border border-navy-700 text-center cursor-pointer card-hover">
+                        <span class="text-xs font-bold text-electric-green block">Vocal Cords 🔊</span>
+                        <span class="text-[11px] text-gray-400">Air flow ➔ Vibrates ➔ Voice</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 14 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-14">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 14 • CLASSROOM RECAP</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1">
+                        Can You Solve The Mystery? 🧩
+                    </h2>
+                    <p class="text-electric-yellow font-heading text-base font-medium mt-1">
+                        Click on each question card to check the answer!
+                    </p>
+                </div>
+
+                <!-- 5 Quiz Cards -->
+                <div class="space-y-3 my-auto">
+                    <div onclick="toggleAnswer('qc-1')" class="bg-navy-900 border border-electric-cyan/40 p-3.5 rounded-2xl cursor-pointer hover:border-electric-cyan transition">
+                        <div class="flex justify-between items-center">
+                            <span class="font-heading font-bold text-sm text-white">Q1: What is sound?</span>
+                            <span class="text-xs font-bold text-electric-cyan">Click to Reveal 👁️</span>
+                        </div>
+                        <div id="qc-1" class="hidden mt-2 p-2 bg-electric-cyan/20 border border-electric-cyan/50 rounded-xl text-xs font-bold text-electric-cyan">
+                            Answer: A form of energy that produces the sensation of hearing in our ears.
+                        </div>
+                    </div>
+
+                    <div onclick="toggleAnswer('qc-2')" class="bg-navy-900 border border-electric-yellow/40 p-3.5 rounded-2xl cursor-pointer hover:border-electric-yellow transition">
+                        <div class="flex justify-between items-center">
+                            <span class="font-heading font-bold text-sm text-white">Q2: How is sound produced by an object?</span>
+                            <span class="text-xs font-bold text-electric-yellow">Click to Reveal 👁️</span>
+                        </div>
+                        <div id="qc-2" class="hidden mt-2 p-2 bg-electric-yellow/20 border border-electric-yellow/50 rounded-xl text-xs font-bold text-electric-yellow">
+                            Answer: Sound is produced when an object vibrates!
+                        </div>
+                    </div>
+
+                    <div onclick="toggleAnswer('qc-3')" class="bg-navy-900 border border-electric-green/40 p-3.5 rounded-2xl cursor-pointer hover:border-electric-green transition">
+                        <div class="flex justify-between items-center">
+                            <span class="font-heading font-bold text-sm text-white">Q3: What is a vibration?</span>
+                            <span class="text-xs font-bold text-electric-green">Click to Reveal 👁️</span>
+                        </div>
+                        <div id="qc-3" class="hidden mt-2 p-2 bg-electric-green/20 border border-electric-green/50 rounded-xl text-xs font-bold text-electric-green">
+                            Answer: A rapid, repeated back-and-forth or to-and-fro motion of an object.
+                        </div>
+                    </div>
+
+                    <div onclick="toggleAnswer('qc-4')" class="bg-navy-900 border border-electric-pink/40 p-3.5 rounded-2xl cursor-pointer hover:border-electric-pink transition">
+                        <div class="flex justify-between items-center">
+                            <span class="font-heading font-bold text-sm text-white">Q4: What happens to sound when vibration stops?</span>
+                            <span class="text-xs font-bold text-electric-pink">Click to Reveal 👁️</span>
+                        </div>
+                        <div id="qc-4" class="hidden mt-2 p-2 bg-electric-pink/20 border border-electric-pink/50 rounded-xl text-xs font-bold text-electric-pink">
+                            Answer: The sound stops immediately!
+                        </div>
+                    </div>
+
+                    <div onclick="toggleAnswer('qc-5')" class="bg-navy-900 border border-electric-purple/40 p-3.5 rounded-2xl cursor-pointer hover:border-electric-purple transition">
+                        <div class="flex justify-between items-center">
+                            <span class="font-heading font-bold text-sm text-white">Q5: Which part of our body vibrates when we speak?</span>
+                            <span class="text-xs font-bold text-electric-purple">Click to Reveal 👁️</span>
+                        </div>
+                        <div id="qc-5" class="hidden mt-2 p-2 bg-electric-purple/20 border border-electric-purple/50 rounded-xl text-xs font-bold text-electric-purple">
+                            Answer: Our vocal cords inside the larynx (voice box)!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="revealAllQuestions()" class="bg-electric-cyan text-navy-900 font-heading font-bold px-6 py-2 rounded-xl text-sm hover:bg-electric-blue transition shadow-lg active:scale-95">
+                        <i class="fa-solid fa-list-check mr-2"></i> Reveal All Quiz Answers
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 15 ==================== -->
+        <section class="slide flex-col p-6 md:p-8" id="slide-15">
+            <div class="bg-navy-800/90 border border-navy-700 rounded-3xl p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden shadow-2xl">
+                <div>
+                    <span class="text-electric-cyan font-heading font-semibold text-xs tracking-wider uppercase">SLIDE 15 • CONCLUSION</span>
+                    <h1 class="font-heading text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-electric-yellow via-electric-cyan to-electric-green mt-1">
+                        MISSION SOUND DETECTIVE: COMPLETE! 🎉
+                    </h1>
+                </div>
+
+                <!-- Lesson Summary Badge Matrix -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-auto">
+                    <div onclick="playSynth('bell')" class="bg-navy-900 border-2 border-electric-yellow p-4 rounded-2xl text-center cursor-pointer card-hover">
+                        <i class="fa-solid fa-bell text-3xl text-electric-yellow mb-2"></i>
+                        <h4 class="font-bold text-sm text-white">Bell Vibrates 🔊</h4>
+                        <span class="text-xs text-electric-yellow">Produces Ringing</span>
+                    </div>
+
+                    <div onclick="playSynth('drum')" class="bg-navy-900 border-2 border-electric-pink p-4 rounded-2xl text-center cursor-pointer card-hover">
+                        <i class="fa-solid fa-drum text-3xl text-electric-pink mb-2"></i>
+                        <h4 class="font-bold text-sm text-white">Drum Vibrates 🔊</h4>
+                        <span class="text-xs text-electric-pink">Produces Beats</span>
+                    </div>
+
+                    <div onclick="playSynth('guitar')" class="bg-navy-900 border-2 border-electric-blue p-4 rounded-2xl text-center cursor-pointer card-hover">
+                        <i class="fa-solid fa-guitar text-3xl text-electric-blue mb-2"></i>
+                        <h4 class="font-bold text-sm text-white">Guitar Vibrates 🔊</h4>
+                        <span class="text-xs text-electric-blue">Produces Music</span>
+                    </div>
+
+                    <div onclick="playSynth('hum')" class="bg-navy-900 border-2 border-electric-green p-4 rounded-2xl text-center cursor-pointer card-hover">
+                        <i class="fa-solid fa-microphone text-3xl text-electric-green mb-2"></i>
+                        <h4 class="font-bold text-sm text-white">Vocal Cords Vibrates 🔊</h4>
+                        <span class="text-xs text-electric-green">Produces Voice</span>
+                    </div>
+                </div>
+
+                <!-- Teaser Banner for Part 2 -->
+                <div class="bg-gradient-to-r from-electric-indigo to-electric-purple p-5 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-electric-yellow uppercase tracking-widest block">NEXT LESSON MISSION</span>
+                        <h3 class="font-heading font-extrabold text-xl text-white mt-0.5">Part 2: How Does Sound Travel Through Air, Liquids & Solids? 🚀</h3>
+                    </div>
+                    <button onclick="goToSlide(1)" class="bg-electric-cyan hover:bg-white text-navy-900 font-heading font-bold px-5 py-2.5 rounded-xl text-xs transition shadow-lg active:scale-95 shrink-0">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Restart Mission
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- AUDIO SYNTHESIZER & PRESENTATION CONTROLLER LOGIC -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 15;
+
+        // Slide Titles for menu thumbnails
+        const slideTitles = [
+            "Mission Sound Detective",
+            "Sound Is All Around Us",
+            "What Is Sound?",
+            "Sources of Sound",
+            "Identify the Sound Game",
+            "How Is Sound Produced?",
+            "What Is A Vibration?",
+            "Rubber Band Experiment",
+            "No Vibration = No Sound",
+            "Vibrating Metal Plate",
+            "The Human Voice",
+            "Watch Slow-Mo Vibration",
+            "Detective's Discovery Flow",
+            "Quick Check Quiz",
+            "Mission Complete"
+        ];
+
+        function showSlide(index) {
+            if (index < 1) index = 1;
+            if (index > totalSlides) index = totalSlides;
+            
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            
+            const activeSlide = document.getElementById(`slide-${index}`);
+            if (activeSlide) {
+                activeSlide.classList.add('active');
+            }
+            
+            currentSlide = index;
+            document.getElementById('slide-num').innerText = currentSlide;
+
+            // Trigger slow-mo animations when visiting slide 12
+            if (index === 12) {
+                initSlowMoCanvases();
+            }
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+            toggleSlideMenu(false);
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Slide Menu Toggle
+        function toggleSlideMenu(forceState) {
+            const menu = document.getElementById('slide-menu');
+            if (forceState !== undefined) {
+                menu.classList.toggle('hidden', !forceState);
+            } else {
+                menu.classList.toggle('hidden');
+            }
+
+            if (!menu.classList.contains('hidden')) {
+                const grid = document.getElementById('grid-thumbnails');
+                grid.innerHTML = '';
+                slideTitles.forEach((title, idx) => {
+                    const slideNum = idx + 1;
+                    grid.innerHTML += `
+                        <div onclick="goToSlide(${slideNum})" class="bg-navy-800 border ${slideNum === currentSlide ? 'border-electric-cyan bg-electric-cyan/20' : 'border-navy-700'} p-3 rounded-xl cursor-pointer hover:border-electric-yellow transition">
+                            <span class="text-xs font-bold text-electric-yellow block">SLIDE ${slideNum}</span>
+                            <span class="text-xs text-white font-medium line-clamp-2">${title}</span>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Slide 5 Guessing Game Answer Reveal
+        function revealSound(id, soundType) {
+            document.getElementById(id).classList.remove('hidden');
+            playSynth(soundType);
+        }
+
+        function revealAllSounds() {
+            playSynth('victory');
+            ['ans-1', 'ans-2', 'ans-3', 'ans-4', 'ans-5'].forEach(id => {
+                document.getElementById(id).classList.remove('hidden');
+            });
+        }
+
+        // Slide 6 Reveal
+        function revealVibration() {
+            document.getElementById('vibrate-reveal').classList.remove('hidden');
+            document.getElementById('reveal-btn').classList.add('hidden');
+            playSynth('drum');
+        }
+
+        // Slide 8 Rubber Band Pluck Simulation
+        function pluckRubberBand() {
+            const path = document.getElementById('rubber-band-path');
+            path.classList.add('animated-string');
+            playSynth('pluck');
+            setTimeout(() => {
+                path.classList.remove('animated-string');
+            }, 500);
+        }
+
+        // Slide 10 Strike Metal Plate Simulation
+        function strikeMetalPlate() {
+            const plate = document.getElementById('plate-graphic');
+            plate.classList.add('vibrate-anim');
+            playSynth('metal');
+            setTimeout(() => {
+                plate.classList.remove('vibrate-anim');
+            }, 1500);
+        }
+
+        // Slide 11 Voice Hum Sound
+        function playVoiceHum() {
+            playSynth('hum');
+        }
+
+        // Slide 14 Question Cards Reveal
+        function toggleAnswer(id) {
+            document.getElementById(id).classList.toggle('hidden');
+            playSynth('pop');
+        }
+
+        function revealAllQuestions() {
+            playSynth('victory');
+            ['qc-1', 'qc-2', 'qc-3', 'qc-4', 'qc-5'].forEach(id => {
+                document.getElementById(id).classList.remove('hidden');
+            });
+        }
+
+        // Real-Time High Precision Web Audio Synthesizer Engine (Targeted Content Audio)
+        let audioCtxInstance = null;
+
+        function getAudioContext() {
+            if (!audioCtxInstance) {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (AudioCtx) {
+                    audioCtxInstance = new AudioCtx();
+                }
+            }
+            if (audioCtxInstance && audioCtxInstance.state === 'suspended') {
+                audioCtxInstance.resume();
+            }
+            return audioCtxInstance;
+        }
+
+        function playSynth(type) {
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+
+                const now = ctx.currentTime;
+
+                if (type === 'bell') {
+                    // Multi-harmonic brass school bell chime
+                    [880, 1760, 2640, 3520].forEach((freq, idx) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, now);
+                        gain.gain.setValueAtTime(0.25 / (idx + 1), now);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.6);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now);
+                        osc.stop(now + 1.6);
+                    });
+
+                } else if (type === 'drum') {
+                    // Deep drum bass boom sound
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(160, now);
+                    osc.frequency.exponentialRampToValueAtTime(35, now + 0.35);
+                    gain.gain.setValueAtTime(0.7, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+
+                } else if (type === 'bird') {
+                    // Bird chirp trill sound
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(2200, now);
+                    osc.frequency.linearRampToValueAtTime(2800, now + 0.08);
+                    osc.frequency.linearRampToValueAtTime(2100, now + 0.16);
+                    osc.frequency.linearRampToValueAtTime(3000, now + 0.25);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+
+                } else if (type === 'guitar' || type === 'pluck') {
+                    // Plucked acoustic string
+                    const osc = ctx.createOscillator();
+                    const filter = ctx.createBiquadFilter();
+                    const gain = ctx.createGain();
+
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(329.63, now); // E4 note
+
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(2200, now);
+                    filter.frequency.exponentialRampToValueAtTime(250, now + 1.2);
+
+                    gain.gain.setValueAtTime(0.4, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+
+                    osc.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 1.2);
+
+                } else if (type === 'horn') {
+                    // Vehicle horn honk
+                    [380, 470].forEach(freq => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'square';
+                        osc.frequency.setValueAtTime(freq, now);
+                        gain.gain.setValueAtTime(0.12, now);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now);
+                        osc.stop(now + 0.45);
+                    });
+
+                } else if (type === 'hum') {
+                    // Human vocal throat hum
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(180, now);
+                    osc.frequency.linearRampToValueAtTime(195, now + 0.8);
+                    osc.frequency.linearRampToValueAtTime(175, now + 1.5);
+
+                    gain.gain.setValueAtTime(0.01, now);
+                    gain.gain.linearRampToValueAtTime(0.35, now + 0.2);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 1.5);
+
+                } else if (type === 'clock') {
+                    // Alarm clock double beep
+                    [0, 0.15].forEach(delay => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(1046.5, now + delay);
+                        gain.gain.setValueAtTime(0.2, now + delay);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.1);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now + delay);
+                        osc.stop(now + delay + 0.1);
+                    });
+
+                } else if (type === 'fan') {
+                    // Ceiling fan whir sound
+                    const bufferSize = ctx.sampleRate * 0.8;
+                    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = Math.random() * 2 - 1;
+                    }
+                    const noise = ctx.createBufferSource();
+                    noise.buffer = buffer;
+
+                    const filter = ctx.createBiquadFilter();
+                    filter.type = 'bandpass';
+                    filter.frequency.setValueAtTime(250, now);
+                    filter.Q.setValueAtTime(3, now);
+
+                    const gain = ctx.createGain();
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
+
+                    noise.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(ctx.destination);
+                    noise.start(now);
+
+                } else if (type === 'music') {
+                    // Musical arpeggio chime
+                    const notes = [523.25, 659.25, 783.99, 1046.50];
+                    notes.forEach((freq, idx) => {
+                        const startTime = now + (idx * 0.1);
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq, startTime);
+                        gain.gain.setValueAtTime(0.25, startTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(startTime);
+                        osc.stop(startTime + 0.4);
+                    });
+
+                } else if (type === 'footstep') {
+                    // Soft footstep thump
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(90, now);
+                    osc.frequency.exponentialRampToValueAtTime(30, now + 0.12);
+                    gain.gain.setValueAtTime(0.4, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.12);
+
+                } else if (type === 'metal') {
+                    // Metallic dish plate clang resonance
+                    [587.33, 880, 1174.66, 1760].forEach((freq, i) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, now);
+                        gain.gain.setValueAtTime(0.25 / (i + 1), now);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.8);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now);
+                        osc.stop(now + 1.8);
+                    });
+
+                } else if (type === 'thunder') {
+                    // Nature thunder rumble
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(65, now);
+                    osc.frequency.exponentialRampToValueAtTime(25, now + 1.2);
+                    gain.gain.setValueAtTime(0.35, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 1.2);
+
+                } else if (type === 'pop') {
+                    // Pop reveal sound
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+
+                } else if (type === 'victory') {
+                    // Celebratory fanfare chord
+                    const chord = [523.25, 659.25, 783.99, 1046.50];
+                    chord.forEach((freq, idx) => {
+                        const tOffset = now + (idx * 0.1);
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq, tOffset);
+                        gain.gain.setValueAtTime(0.3, tOffset);
+                        gain.gain.exponentialRampToValueAtTime(0.001, tOffset + 0.8);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(tOffset);
+                        osc.stop(tOffset + 0.8);
+                    });
+                }
+            } catch(e) {
+                console.log('Audio Context restricted:', e);
+            }
+        }
+
+        // HTML5 Canvas Animations for Slow-Mo Visuals (Slide 12)
+        function initSlowMoCanvases() {
+            // Guitar String Wave
+            const gCanvas = document.getElementById('guitar-canvas');
+            if (gCanvas) {
+                const ctx = gCanvas.getContext('2d');
+                let t = 0;
+                function drawGuitar() {
+                    ctx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+                    ctx.beginPath();
+                    ctx.moveTo(10, gCanvas.height / 2);
+                    const flex = Math.sin(t) * 22;
+                    ctx.quadraticCurveTo(gCanvas.width / 2, gCanvas.height / 2 + flex, gCanvas.width - 10, gCanvas.height / 2);
+                    ctx.strokeStyle = '#4CC9F0';
+                    ctx.lineWidth = 4;
+                    ctx.stroke();
+                    t += 0.25;
+                    requestAnimationFrame(drawGuitar);
+                }
+                drawGuitar();
+            }
+
+            // Tuning Fork Ripple in Water
+            const tCanvas = document.getElementById('tuning-canvas');
+            if (tCanvas) {
+                const ctx = tCanvas.getContext('2d');
+                let r = 5;
+                function drawTuning() {
+                    ctx.clearRect(0, 0, tCanvas.width, tCanvas.height);
+                    ctx.beginPath();
+                    ctx.arc(tCanvas.width / 2, tCanvas.height / 2, r, 0, Math.PI * 2);
+                    ctx.strokeStyle = '#FFD166';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    r += 1.5;
+                    if (r > 45) r = 5;
+                    requestAnimationFrame(drawTuning);
+                }
+                drawTuning();
+            }
+
+            // Drum Membrane Rice Bouncing
+            const dCanvas = document.getElementById('drum-canvas');
+            if (dCanvas) {
+                const ctx = dCanvas.getContext('2d');
+                const particles = Array.from({length: 10}, () => ({
+                    x: Math.random() * 160 + 30,
+                    y: Math.random() * 30 + 40
+                }));
+                function drawDrum() {
+                    ctx.clearRect(0, 0, dCanvas.width, dCanvas.height);
+                    ctx.fillStyle = '#06D6A0';
+                    particles.forEach(p => {
+                        p.y += Math.sin(Date.now() * 0.02 + p.x) * 1.5;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+                    requestAnimationFrame(drawDrum);
+                }
+                drawDrum();
+            }
+        }
+    </script>
+</body>
+</html>
